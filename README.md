@@ -26,9 +26,16 @@ JOIN Patient p ON a.PatientID = p.PatientID
 JOIN Doctor d ON a.DoctorID = d.DoctorID
 WHERE a.AppointmentDate > CURDATE();
 
--Count how many appointments each doctor has
+- Count how many appointments each doctor has
 SELECT d.FirstName, d.LastName, COUNT(*) AS TotalAppointments
 FROM Appointment a
 JOIN Doctor d ON a.DoctorID = d.DoctorID
 GROUP BY a.DoctorID;
+
+- Get total billing amount for each insurance provider
+SELECT i.ProviderName, SUM(b.TotalAmount) AS TotalBilled
+FROM Billing b
+JOIN InsuranceProvider i ON b.InsuranceID = i.InsuranceID
+GROUP BY i.ProviderName;
+
 
